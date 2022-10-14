@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>not instagram</title>
+</head>
+<body>
+    <h1>회원가입 페이지</h1>
+    <form action="{% url 'user:signup'%}" method="POST">
+        {% csrf_token%}
+        <input type = 'text' name="username" placeholder="아이디" id='username' class='username'/>
+        <!-- name: 백엔드에서 사용하는 이름 id:html페이지마다 하나씩 만들 수 있음 -->
+        <input type = 'password' name="password" placeholder="비밀번호"/>
+        <input type = 'password' name="password_check" placeholder="비밀번호 확인"/>
+        <input type = 'submit'/>
+    </form>
+</body>
+</html>
