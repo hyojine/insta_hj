@@ -4,7 +4,9 @@ from user import views
 # 왜 .user 아니지?
 
 app_name='user'
+
 urlpatterns = [
-    path('signup/',views.signup,name='signup'),
-    path('login/',views.login,name='login'),
+    path('signup/',views.signup, name='signup'),
+    path('login/',views.login, name='login'),
+    path('<str:username>/',views.profile, name='profile'),
 ]
