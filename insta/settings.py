@@ -54,7 +54,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'insta.urls'
 
-MEDIA_ROOT = '/insta/static/media'
+# MEDIA_ROOT = '/insta/static/media'
+import os
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 TEMPLATES = [

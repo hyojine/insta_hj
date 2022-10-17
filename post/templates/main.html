@@ -18,7 +18,12 @@
                 <a style='text-decoration: none;' href="{% url 'post:delete' post.id %}">삭제</a>
                 <a style='text-decoration: none;' href="{% url 'post:update' post.id %}">수정</a> 
             </div>            
-        </div>    
+        </div>  
+        <div>
+            {% for photo in post.image_set.all %}
+                <img src="{{photo.image.url}}"><br>
+            {% endfor %}
+        </div>  
         <div class = "content-detail" style="border: solid pink">
             <h3><a style="text-decoration:none;" href="{% url 'post:detail' post.id %}">{{post.title}}</a></h3>
         </div>

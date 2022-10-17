@@ -5,7 +5,7 @@ from user.models import User
 # Create your models here.
 class Post(models.Model):
     title = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='media/',default='insta/static/media/image.jpg')
+    # image = models.ImageField(upload_to='media/',default='insta/static/media/image.jpg')
     content = models.TextField(blank = True)
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -14,6 +14,9 @@ class Post(models.Model):
     def __str__(self):
         return str(self.title)
 
+class Image(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='media/')
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)

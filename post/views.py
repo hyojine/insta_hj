@@ -1,9 +1,10 @@
 # from email import contentmanager
 # from turtle import title
+from pdb import post_mortem
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render,redirect
-from .models import Post, Comment
+from .models import Post, Image, Comment
 
 
 # Create your views here.
@@ -18,11 +19,19 @@ def create_post(request):
     if request.method == 'GET':
         return render(request,'create_post.html')
     elif request.method =='POST':
-        title = request.POST.get('title')
-        content = request.POST.get('content')
-        user = request.user
-        Post.objects.create(title=title, content=content, user=user)
-        return redirect('post:main')
+        post = Post()
+        post.title = request.POST.get('title')
+        post.content = request.POST.get('content')
+        post.user = request.user
+        post.save()
+        # Post.objects.create(title=title, content=content, user=user)
+        print(request.FILES)
+        for img in request.FILES.getlist('image'):
+            i=Image()
+            i.post=post
+            i.image = img
+            i.save()
+        return redirect('post:detail',post_id=post.id)
 
 def detail(request,post_id):
     # post = Post.objects.get(id=post_id) # do not exist error를 404 error로 바꿔줌 
