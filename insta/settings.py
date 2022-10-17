@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'user',
+    'post',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'insta.urls'
+
+MEDIA_ROOT = '/insta/static/media'
+MEDIA_URL = '/media/'
 
 TEMPLATES = [
     {

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>모든 게시글들</h1>
+    {% for post in posts %}
+    <div style="border:solid black">
+        <div class = "content-nav" style="display:flex; flex-direction: row;">
+            <div>
+                <p style="border:solid blue">{{post.user}}</p>
+            </div>            
+            <div style="border: solid red; float:right; margin-top: 18px; height:20px;">
+                <a style='text-decoration: none;' href="{% url 'post:delete' post.id %}">삭제</a>
+                <a style='text-decoration: none;' href="{% url 'post:update' post.id %}">수정</a> 
+            </div>            
+        </div>    
+        <div class = "content-detail" style="border: solid pink">
+            <h3><a style="text-decoration:none;" href="{% url 'post:detail' post.id %}">{{post.title}}</a></h3>
+        </div>
+        <p>{{post.content}}</p>
+        <p>작성자: {{post.user}} 작성일자:{{post.created_at|timesince}} 전</p>   
+    </div><br>
+    <div>
+        <p>{{comment.user}}</p>
+    </div>
+    {% endfor %}
+</body>
+</html>
