@@ -14,8 +14,19 @@ urlpatterns = [
     path('post/<int:post_id>/update/',views.update, name='update'),
     
     # comment
-    path('comment/create/<int:id>/',views.create_comment, name='create_comment'),
-    path('comment/delete/<int:id>/',views.delete_comment, name='delete_comment'),
+    path('comment/create/<int:post_id>/',views.create_comment, name='create_comment'),
+    path('comment/update/<int:comment_id>/',views.update_comment, name='update_comment'),
+    path('comment/delete/<int:comment_id>/',views.delete_comment, name='delete_comment'),
+
+    # like
+    path('post/likes/<int:post_id>/', views.likes, name='likes'),
+    # path('post/likes/list/<int:post_id>/', views.likes_list, name='like-list'),
+
+    # #search
+    # path('search/', views.search, name='search'),
+
+    # #follow
+    # path('post/followlist/<int:post_id>/', views.follow_list, name='follow-list'),
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

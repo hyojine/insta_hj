@@ -1,0 +1,43 @@
+{% block content %}
+<div class="container timeline-container">
+    <div>        
+        <div style='margin-left: 160px;'>
+            <div>
+                <div style='padding:8px 16px;width:600px;'>
+                    <div>
+                        <h4 class="card-title">{{ user.username }} 님!</h4>
+                        <h5> follower : {{ user.follower.count }} 명 / following : {{ user.following.count }} 명</h5>
+                    </div>
+                    <p> 더 많은 사람들을 팔로우해보세요! </p>
+                </div>
+                
+                <h4>추천</h4>
+                
+                {% for ul in user_list %}
+                    <div>
+                        <div style='padding:8px 16px; border-radius:8px; width:600px; box-shadow: 0px 1px 10px -4px rgb(153 153 153); display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;'>
+                            <h5 class="card-title">{{ ul.username }}</h5>
+                                <div style='margin-right:200px;'>
+                                    팔로잉 {{ ul.following.count }} 명 | 팔로워 {{ ul.follower.count }} 명
+                                </div>
+                                <div>
+                                    {% if ul in user.followings.all %}
+                                    <button style="width:91px; height: 32px; border-radius: 12px; border: 0; background-color:#FFCD48; border-color: #FFCD48; ">
+                                        <a href="/user/follow/{{ ul.id }}" style=" text-decoration: none; color:white; ">팔로우 취소</a>
+                                    </button>
+                                    {% else %}
+                                    <button style="width:91px; height:32px; border-radius: 12px; border: 0; background-color:#FFCD48; border-color: #FFCD48;">
+                                        <a href="/user/follow/{{ ul.id }}" style="text-decoration: none; color:white;">팔로우</a>
+                                    </button>
+                                    {% endif %}
+                                </div>
+                        </div>
+                    </div>
+                    
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+{% endblock content %}

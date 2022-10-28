@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import User
@@ -28,14 +29,32 @@ def login(request):
         password = request.POST.get('password')
         user = authenticate(request,username=username,password=password)
         if user is not None:
-            
             loginsession(request,user)
             return redirect('user:profile',username=username)
         else:
             return  redirect('/login')
 
+# 프로필 페이지
+@login_required
 def profile(request, username):
     content = get_object_or_404(User, username=username)
     # content = User.objects.get(username=username)
     context={"user":content}
     return render(request,'profile.html',context)
+
+# 팔로우
+@login_required
+def userlist(request):
+    if request.method == 'GET':
+        user_list = User.objects.all().exclude(username=request.user.username)
+        return render(request,'userlist.html',{'user_list':user_list})
+
+@login_required
+def follow(request, id):
+    me = request.user
+    clicker = User.objects.get(id=id)
+    if me in clicker.following.all():
+        clicker.following.remove(request.user)
+    else:
+        clicker.following.add(request.user)
+    return redirect('/userlist/')

@@ -24,6 +24,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('user.urls')),
     path('',include('post.urls')),
+    # path('ckeditor/',include('ckeditor_uploader.urls'))
 ]
 
+# 프로젝트 폴더의 urls.py에 위치해야함
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

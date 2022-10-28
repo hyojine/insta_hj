@@ -7,32 +7,42 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>모든 게시글들</h1>
+    <div style="display:flex">
+        <h1>모든 게시글들</h1>
+        <button style = "float:right" type = submit onclick = "location.href = '/post/create' "> 게시글 작성하기 </button>
+    </div>
     {% for post in posts %}
-    <div style="border:solid black">
+    <div style="border:solid lightgray;">
         <div class = "content-nav" style="display:flex; flex-direction: row;">
             <div>
-                <p style="border:solid blue">{{post.user}}</p>
-            </div>            
-            <div style="border: solid red; float:right; margin-top: 18px; height:20px;">
-                <a style='text-decoration: none;' href="{% url 'post:delete' post.id %}">삭제</a>
-                <a style='text-decoration: none;' href="{% url 'post:update' post.id %}">수정</a> 
+                <p>{{post.author}}</p>
+            </div>    
+            <div style="float:right; margin-top: 18px; height:20px;">
+                {% if post.author == user %}
+                    <a style='text-decoration: none;' href="{% url 'post:delete' post.id %}">삭제</a>
+                    <a style='text-decoration: none;' href="{% url 'post:update' post.id %}">수정</a> 
+                {% endif %}
             </div>            
         </div>  
         <div>
+            <hr>
             {% for photo in post.image_set.all %}
-                <img src="{{photo.image.url}}"><br>
+                <img src="{{photo.image.url}}" width="100"><br>
             {% endfor %}
+            <hr>
         </div>  
-        <div class = "content-detail" style="border: solid pink">
+        <div class = "content-detail">
             <h3><a style="text-decoration:none;" href="{% url 'post:detail' post.id %}">{{post.title}}</a></h3>
+            <hr>
         </div>
         <p>{{post.content}}</p>
-        <p>작성자: {{post.user}} 작성일자:{{post.created_at|timesince}} 전</p>   
+        <p>작성자: {{post.author}} 작성일자:{{post.created_at|timesince}} 전</p>   
     </div><br>
+    {% comment %}
     <div>
         <p>{{comment.user}}</p>
     </div>
+    {% endcomment %}
     {% endfor %}
 </body>
 </html>

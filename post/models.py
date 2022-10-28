@@ -1,7 +1,6 @@
 from django.db import models
 from user.models import User
 
-
 # Create your models here.
 class Post(models.Model):
     title = models.CharField(max_length=100)
@@ -9,8 +8,10 @@ class Post(models.Model):
     content = models.TextField(blank = True)
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     # 탈퇴할 때(user가 없어지면) 내가 쓴 글(post)을 모두 지우겠다
+    like_authors = models.ManyToManyField(User, related_name='like_posts')
+    # related_name 역참조
     def __str__(self):
         return str(self.title)
 
